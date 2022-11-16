@@ -32,7 +32,7 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Create a new controller instance.
+     * GeneralCreate a new controller instance.
      *
      * @return void
      */
@@ -57,7 +57,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * GeneralCreate a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return \App\Models\User

@@ -2,56 +2,44 @@
 
 namespace App\Http\Livewire\User;
 
+use App\Http\GeneralComponents\GeneralEdit;
+use App\Http\Validation\Users\Update;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Livewire\Component;
+use Illuminate\Support\Str;
 
-class Edit extends Component
+class Edit extends GeneralEdit
 {
     public string $name = '';
     public string $email = '';
     public string $password = '';
-    public User $user;
+    public Model $model;
+    protected string $module = 'User';
+    protected string $update=Update::class;
 
     public function mount(User $user)
     {
-        $this->user = $user;
+        $this->model = $user;
         $this->name = $user->name;
         $this->email = $user->email;
         $this->password = '';
     }
 
-    protected function rules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user->id],
-            'password' => ['nullable', 'string', 'min:8'],
-        ];
-    }
-
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
-    public function update()
+    public function update() //override function
     {
         $validatedData = $this->validate();
         try {
             if (empty($validatedData['password'])) {
                 $validatedData = Arr::except($validatedData, 'password');
             }
-            $this->user->update($validatedData);
+            $this->model->update($validatedData);
         } catch (\Exception) {
             $this->emit('error', 'something error');
         }
-        session()->flash('success', 'user updated successfully');
-        return redirect()->route('users');
+        session()->flash('success', $this->module . ' updated successfully');
+        return redirect()->route(Str::lower($this->module) . 's');
     }
 
-    public function render()
-    {
-        return view('livewire.user.edit');
-    }
+
 }
