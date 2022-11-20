@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\Users\Gender;
+use App\Enums\Users\Roles;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,9 +18,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('gender',['m','f'])->default('m');
-            $table->enum('role',['admin','user'])->default('user');
+            $table->enum('gender',[Gender::Male->value,Gender::Female->value])->default(Gender::Male->value);
+            $table->enum('role',[Roles::User->value,Roles::Admin->value])->default(Roles::User->value);
             $table->string('photo')->nullable();
+            $table->text('description')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

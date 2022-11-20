@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Users\Gender;
+use App\Enums\Users\Roles;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +23,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'description',
+        'gender',
+        'role',
         'password',
     ];
 
@@ -41,6 +46,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'gender'=>Gender::class,
+        'role'=>Roles::class
     ];
 
     protected function password(): Attribute

@@ -12,12 +12,16 @@
                     class="btn btn-primary"
                     icon="plus"/>
             </div>
-            <x-form.search  name="search" labelName="Users..."/>
+            <div class="float-right m-4">
+                <x-form.search  name="search" labelName="Users..."/>
+            </div>
             <table id="zero-config" class="table table-striped" style="width:100%">
                 <thead>
                 <tr>
                     <x-table.th  name="name" labelName="Name"/>
                     <x-table.th  name="email" labelName="Email"/>
+                    <x-table.th  name="role" labelName="Role"/>
+                    <x-table.th  name="gender" labelName="Gender"/>
                     <x-table.th  name="created_at" labelName="Created at"/>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -28,6 +32,8 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->role->name }}</td>
+                        <td>{{ $user->gender->name }}</td>
                         <td>{{ $user->created_at->format('m-d-Y') }}</td>
                         <td>
                             <x-table.link
@@ -37,7 +43,8 @@
                         </td>
                         <td>
                             @if($user->id!=auth()->id())
-                                <x-table.fire-event
+                                <x-form.button
+                                    type="button"
                                     icon="trash"
                                     class="btn btn-danger"
                                     emit="$emit('deleting', {{ $user->id }}, 'user')"
