@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\User;
+namespace App\Http\Livewire\Admin\User;
 
 use App\Http\GeneralComponents\GeneralEdit;
 use App\Http\Validation\Users\Update;
@@ -17,6 +17,8 @@ class Edit extends GeneralEdit
     public Model $model;
     protected string $module = 'User';
     protected string $update=Update::class;
+    protected string $parent = 'admin.users';
+
 
     public function mount(User $user)
     {
@@ -38,7 +40,7 @@ class Edit extends GeneralEdit
             $this->emit('error', 'something error');
         }
         session()->flash('success', $this->module . ' updated successfully');
-        return redirect()->route(Str::lower($this->module) . 's');
+        return redirect()->route($this->parent . '.index');
     }
 
 

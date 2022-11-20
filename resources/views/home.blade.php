@@ -15,6 +15,11 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                        <br>
+                        <x-table.link
+                            href="{{route('admin.home')}}"
+                            class="btn btn-md btn-dark"
+                            labelName="Admin"/>
                 </div>
             </div>
         </div>

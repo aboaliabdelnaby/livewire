@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\User;
+namespace App\Http\Livewire\Admin\User;
 
 use App\Http\GeneralComponents\GeneralCreate;
 use App\Http\Validation\Users\Store;
@@ -14,5 +14,7 @@ class Create extends GeneralCreate
     protected string $model = User::class;
     protected string $module = 'User';
     protected string $store = Store::class;
+    protected string $route='';
+    protected string $parent = 'admin.users';
 
 }

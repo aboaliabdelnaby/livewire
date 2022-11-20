@@ -9,6 +9,7 @@ use Livewire\Component;
 
 class GeneralEdit extends Component
 {
+    protected string $parent = '';
     protected function rules(): array
     {
         return $this->update::rules($this->model);
@@ -28,11 +29,11 @@ class GeneralEdit extends Component
             $this->emit('error', 'something error');
         }
         session()->flash('success', $this->module . ' updated successfully');
-        return redirect()->route(Str::lower($this->module) . 's');
+        return redirect()->route($this->parent . '.index');
     }
 
     public function render()
     {
-        return view('livewire.' . Str::lower($this->module) . '.edit');
+        return view('livewire.' . $this->parent . '.edit');
     }
 }

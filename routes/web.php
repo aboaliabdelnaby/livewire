@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Livewire\User\Create;
-use App\Http\Livewire\User\Edit;
-use App\Http\Livewire\User\Index;
+use App\Http\Livewire\Admin\Home;
+use App\Http\Livewire\Admin\User\Create;
+use App\Http\Livewire\Admin\User\Edit;
+use App\Http\Livewire\Admin\User\Index;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,17 @@ Auth::routes();
 Route::get('/',function (){
    return view('welcome');
 });
-Route::get('/home', Index::class)->name('users');
-Route::get('/create',Create::class)->name('users.create');
-Route::get('/edit/{user}',Edit::class)->name('users.edit');
+Route::get('/home',function (){
+    return view('home');
+});
+Route::group(['prefix' => '/admin', 'as' => 'admin.',], function () {
+    Route::get('/home',Home::class)->name('home');
+    Route::group(['prefix' => '/users', 'as' => 'users.',], function () {
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create',Create::class)->name('create');
+        Route::get('/edit/{user}',Edit::class)->name('edit');
+    });
+
+});
+
 

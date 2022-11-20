@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class GeneralCreate extends Component
 {
+    protected string $parent = '';
     protected function rules(): array
     {
         return $this->store::rules();
@@ -27,12 +28,12 @@ class GeneralCreate extends Component
             $this->emit('error', 'something error');
         }
         session()->flash('success', $this->module . ' created successfully');
-        return redirect()->route(Str::lower($this->module) . 's');
+        return redirect()->route($this->parent .'.index');
 
     }
 
     public function render()
     {
-        return view('livewire.' . Str::lower($this->module) . '.create');
+        return view('livewire.'.$this->parent  . '.create');
     }
 }
