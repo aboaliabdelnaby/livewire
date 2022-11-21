@@ -9,6 +9,7 @@ use App\Http\Validation\Admin\Users\Update;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
 class Edit extends GeneralEdit
@@ -52,6 +53,7 @@ class Edit extends GeneralEdit
         }
         if (isset($validatedData['photo'])) {
             $validatedData['photo'] = $this->photo->store('profiles','public');
+            Storage::disk('public')->delete($this->oldPhoto);
         }else{
             $validatedData = Arr::except($validatedData, 'photo');
 
