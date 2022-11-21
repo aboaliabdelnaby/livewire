@@ -18,6 +18,7 @@ class Store implements Validation
             'description' => ['nullable', 'string', 'max:500'],
             'role' => ['required', new Enum(Roles::class)],
             'gender' => ['required', new Enum(Gender::class)],
+            'photo' => ['required','image','max:1024'], // 1MB Max
         ];
     }
 

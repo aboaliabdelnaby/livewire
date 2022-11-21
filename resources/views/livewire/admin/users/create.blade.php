@@ -16,6 +16,7 @@
                 <x-form.box type="select" name="role" labelName="Role" key="role" :elements="$roles"/>
 {{--                <x-form.switch  name="status" labelName="Status" key="status" active="1"/>--}}
                 <x-form.box type="radio" name="gender" labelName="Gender" key="gender" :elements="$genders"/>
+                <x-form.file type="text" name="photo" labelName="Photo" key="photo" :url="$photo"/>
                 <x-form.button type="submit" labelName="Add User" class="btn btn-primary"/>
             </form>
         </div>

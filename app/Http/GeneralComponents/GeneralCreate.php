@@ -23,13 +23,16 @@ class GeneralCreate extends Component
     {
         $validatedData = $this->validate();
         try {
-            $this->model::create($validatedData);
+            $this->model::create($this->validatedData($validatedData));
         } catch (\Exception) {
             $this->emit('error', 'something error');
         }
         session()->flash('success', $this->module . ' created successfully');
         return redirect()->route($this->parent .'.index');
 
+    }
+    protected function validatedData($validatedData){
+        return $validatedData;
     }
 
     public function render()

@@ -9,23 +9,27 @@ use App\Http\Validation\Admin\Users\Update;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Livewire\WithFileUploads;
 
 class Edit extends GeneralEdit
 {
+    use WithFileUploads;
     //fields
     public string $name = '';
     public string $email = '';
     public string $password = '';
-    public string|null $description='';
-    public string|Roles $role='';
-    public string|Gender $gender='';
+    public string|null $description = '';
+    public string|Roles $role = '';
+    public string|Gender $gender = '';
+    public $photo;
+    public string|null $oldPhoto='';
     //end
     public Model $model;
     protected string $module = 'User';
-    protected string $update=Update::class;
+    protected string $update = Update::class;
     protected string $parent = 'admin.users';
-    public array $roles=[];
-    public array $genders=[];
+    public array $roles = [];
+    public array $genders = [];
 
     public function mount(User $user)
     {
@@ -33,25 +37,26 @@ class Edit extends GeneralEdit
         $this->name = $user->name;
         $this->email = $user->email;
         $this->description = $user->description;
-        $this->role=$user->role;
-        $this->gender=$user->gender;
+        $this->role = $user->role;
+        $this->gender = $user->gender;
         $this->password = '';
-        $this->roles=Roles::roles();
-        $this->genders=Gender::genders();
+        $this->roles = Roles::roles();
+        $this->genders = Gender::genders();
+        $this->oldPhoto=$user->photo;
     }
-    public function update() //override function
+
+    protected function validatedData($validatedData)
     {
-        $validatedData = $this->validate();
-        try {
-            if (empty($validatedData['password'])) {
-                $validatedData = Arr::except($validatedData, 'password');
-            }
-            $this->model->update($validatedData);
-        } catch (\Exception) {
-            $this->emit('error', 'something error');
+        if (empty($validatedData['password'])) {
+            $validatedData = Arr::except($validatedData, 'password');
         }
-        session()->flash('success', $this->module . ' updated successfully');
-        return redirect()->route($this->parent . '.index');
+        if (isset($validatedData['photo'])) {
+            $validatedData['photo'] = $this->photo->store('profiles','public');
+        }else{
+            $validatedData = Arr::except($validatedData, 'photo');
+
+        }
+        return $validatedData;
     }
 
 

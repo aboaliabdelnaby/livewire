@@ -9,9 +9,11 @@ use App\Http\Validation\Admin\Users\Store;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\Enum;
+use Livewire\WithFileUploads;
 
 class Create extends GeneralCreate
 {
+    use WithFileUploads;
     //fields
     public string $name = '';
     public string $email = '';
@@ -19,6 +21,7 @@ class Create extends GeneralCreate
     public string|null $description='';
     public string|Roles $role='';
     public string|Gender $gender='';
+    public $photo;
     //end
     protected string $model = User::class;
     protected string $module = 'User';
@@ -31,6 +34,11 @@ class Create extends GeneralCreate
     {
         $this->roles=Roles::roles();
         $this->genders=Gender::genders();
+    }
+    protected function validatedData($validatedData)
+    {
+        $validatedData['photo'] = $this->photo->store('profiles','public');
+        return $validatedData;
     }
 
 

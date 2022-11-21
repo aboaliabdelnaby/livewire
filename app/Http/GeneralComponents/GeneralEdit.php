@@ -24,12 +24,15 @@ class GeneralEdit extends Component
     {
         $validatedData = $this->validate();
         try {
-            $this->model->update($validatedData);
+            $this->model->update($this->validatedData($validatedData));
         } catch (\Exception) {
             $this->emit('error', 'something error');
         }
         session()->flash('success', $this->module . ' updated successfully');
         return redirect()->route($this->parent . '.index');
+    }
+    protected function validatedData($validatedData){
+        return $validatedData;
     }
 
     public function render()
