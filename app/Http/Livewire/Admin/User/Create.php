@@ -26,7 +26,6 @@ class Create extends GeneralCreate
     protected string $model = User::class;
     protected string $module = 'User';
     protected string $store = Store::class;
-    protected string $route='';
     protected string $parent = 'admin.users';
     public array $roles=[];
     public array $genders=[];

@@ -3,8 +3,6 @@
 namespace App\Http\GeneralComponents;
 
 use App\Http\Traits\WithSorting;
-use App\Models\User;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,7 +15,9 @@ class GeneralIndex extends Component
     public string $sortField = 'created_at';
     protected $listeners = ['delete'];
     protected int $paginate = 10;
-    protected string $parent = '';
+    protected string $model;
+    protected string $module;
+    protected string $parent;
 
     public function updatingSearch()      // Resetting Pagination After Filtering Data
     {
@@ -34,7 +34,7 @@ class GeneralIndex extends Component
         } catch (\Exception) {
             $this->emit('error', 'something error');
         }
-        return view('livewire.' . $this->parent. '.index', ['data' => $data]);
+        return view('livewire.' . $this->parent . '.index', ['data' => $data]);
 
     }
 

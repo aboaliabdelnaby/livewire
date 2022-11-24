@@ -2,14 +2,16 @@
 
 namespace App\Http\GeneralComponents;
 
-use App\Models\User;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
 class GeneralEdit extends Component
 {
-    protected string $parent = '';
+    public Model $model;
+    protected string $module;
+    protected string $update;
+    protected string $parent;
+
     protected function rules(): array
     {
         return $this->update::rules($this->model);
@@ -31,7 +33,9 @@ class GeneralEdit extends Component
         session()->flash('success', $this->module . ' updated successfully');
         return redirect()->route($this->parent . '.index');
     }
-    protected function validatedData($validatedData){
+
+    protected function validatedData($validatedData)
+    {
         return $validatedData;
     }
 
