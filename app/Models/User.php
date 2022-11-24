@@ -47,23 +47,14 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'gender'=>Gender::class,
-        'role'=>Roles::class
+        'gender' => Gender::class,
+        'role' => Roles::class
     ];
 
     protected function password(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => bcrypt($value)
+            set: fn($value) => bcrypt($value)
         );
-    }
-
-    public static function search($search): \Illuminate\Database\Eloquent\Builder
-    {
-        return empty($search) ? self::query() : self::where(function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%')
-                ->orWhere('email', 'like', '%' . $search . '%');
-        });
-
     }
 }

@@ -10,11 +10,11 @@ use Illuminate\Validation\Rules\Enum;
 class Update implements Validation
 {
 
-    public static function rules($model=null): array
+    public static function rules($id=null): array
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $model->id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $id],
             'password' => ['nullable', 'string', 'min:8'],
             'description' => ['nullable', 'string', 'max:500'],
             'role' => ['required', new Enum(Roles::class)],

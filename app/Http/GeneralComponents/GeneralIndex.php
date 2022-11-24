@@ -3,8 +3,6 @@
 namespace App\Http\GeneralComponents;
 
 use App\Http\Traits\WithSorting;
-use App\Models\User;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,7 +15,10 @@ class GeneralIndex extends Component
     public string $sortField = 'created_at';
     protected $listeners = ['delete'];
     protected int $paginate = 10;
-    protected string $parent = '';
+    protected string $parent;
+    protected string $module;
+    protected string $repository;
+    protected array $columns;
 
     public function updatingSearch()      // Resetting Pagination After Filtering Data
     {
@@ -28,20 +29,19 @@ class GeneralIndex extends Component
     {
         $data = null;
         try {
-            $data = $this->model::search($this->search)
-                ->orderBy($this->sortField, $this->sortType)
-                ->paginate($this->paginate);
+            $data = app($this->repository)->index($this->paginate, ['search' => $this->search, 'columns' => $this->columns],
+                ['by' => $this->sortField, 'type' => $this->sortType]);
         } catch (\Exception) {
             $this->emit('error', 'something error');
         }
-        return view('livewire.' . $this->parent. '.index', ['data' => $data]);
+        return view('livewire.' . $this->parent . '.index', ['data' => $data]);
 
     }
 
     public function delete($id)
     {
         try {
-            $this->model::find($id)->delete();
+            app($this->repository)->destroy($id);
             $this->emit('success', $this->module . ' deleted successfully');
         } catch (\Exception) {
             $this->emit('error', 'something error');

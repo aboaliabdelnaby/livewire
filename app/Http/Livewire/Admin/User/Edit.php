@@ -5,16 +5,14 @@ namespace App\Http\Livewire\Admin\User;
 use App\Enums\Users\Gender;
 use App\Enums\Users\Roles;
 use App\Http\GeneralComponents\GeneralEdit;
+use App\Http\Repositories\Admin\UserRepository;
 use App\Http\Validation\Admin\Users\Update;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
 class Edit extends GeneralEdit
 {
     use WithFileUploads;
+
     //fields
     public string $name = '';
     public string $email = '';
@@ -23,18 +21,20 @@ class Edit extends GeneralEdit
     public string|Roles $role = '';
     public string|Gender $gender = '';
     public $photo;
-    public string|null $oldPhoto='';
+    public string|null $oldPhoto = '';
     //end
-    public Model $model;
+    protected string $repository = UserRepository::class;
     protected string $module = 'User';
     protected string $update = Update::class;
     protected string $parent = 'admin.users';
+    public int $modelId;
     public array $roles = [];
     public array $genders = [];
 
-    public function mount(User $user)
+    public function mount($id)
     {
-        $this->model = $user;
+        $user = app($this->repository)->find($id);
+        $this->modelId = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
         $this->description = $user->description;
@@ -43,20 +43,13 @@ class Edit extends GeneralEdit
         $this->password = '';
         $this->roles = Roles::roles();
         $this->genders = Gender::genders();
-        $this->oldPhoto=$user->photo;
+        $this->oldPhoto = $user->photo;
     }
 
     protected function validatedData($validatedData)
     {
-        if (empty($validatedData['password'])) {
-            $validatedData = Arr::except($validatedData, 'password');
-        }
         if (isset($validatedData['photo'])) {
-            $validatedData['photo'] = $this->photo->store('profiles','public');
-            Storage::disk('public')->delete($this->oldPhoto);
-        }else{
-            $validatedData = Arr::except($validatedData, 'photo');
-
+            $validatedData['photo'] = $this->photo->store('profiles', 'public');
         }
         return $validatedData;
     }
