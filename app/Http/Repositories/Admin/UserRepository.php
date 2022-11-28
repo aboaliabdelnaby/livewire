@@ -4,8 +4,10 @@ namespace App\Http\Repositories\Admin;
 
 use App\Http\Repositories\Base\Crud\CrudRepository;
 use App\Models\User;
+use App\Notifications\EmailNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class UserRepository extends CrudRepository
@@ -34,6 +36,7 @@ class UserRepository extends CrudRepository
     {
         $user = $this->find($id);
         Storage::disk('public')->delete($user->photo);
+        Notification::send($user, new EmailNotification($user,'updating'));
         return parent::destroy($id);
     }
 
