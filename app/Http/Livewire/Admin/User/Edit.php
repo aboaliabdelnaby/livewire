@@ -4,12 +4,13 @@ namespace App\Http\Livewire\Admin\User;
 
 use App\Enums\Users\Gender;
 use App\Enums\Users\Roles;
-use App\Http\GeneralComponents\GeneralEdit;
-use App\Http\Repositories\Admin\UserRepository;
+use App\Http\GeneralComponents\Components\Editing;
+use App\Http\GeneralComponents\Validation\Validation;
 use App\Http\Validation\Admin\Users\Update;
+use App\Models\User;
 use Livewire\WithFileUploads;
 
-class Edit extends GeneralEdit
+class Edit extends Editing
 {
     use WithFileUploads;
 
@@ -23,18 +24,25 @@ class Edit extends GeneralEdit
     public $photo;
     public string|null $oldPhoto = '';
     //end
-    protected string $repository = UserRepository::class;
-    protected string $module = 'User';
-    protected string $update = Update::class;
-    protected string $parent = 'admin.users';
-    public int $modelId;
+    protected string $model = User::class;
+    protected string $message = 'User updated successfully';
+    protected string $viewPath = 'admin.users.edit';
+    protected string $routePath = 'admin.users.index';
     public array $roles = [];
     public array $genders = [];
 
+    public function __construct($id = null)
+    {
+        parent::__construct($id);
+        $this->updateValidation = app(Update::class);
+
+
+    }
+
     public function mount($id)
     {
-        $user = app($this->repository)->find($id);
-        $this->modelId = $user->id;
+        $user = $this->query->find($id);
+        $this->editId = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
         $this->description = $user->description;
@@ -46,12 +54,17 @@ class Edit extends GeneralEdit
         $this->oldPhoto = $user->photo;
     }
 
-    protected function validatedData($validatedData)
+    protected function rules(): array
     {
-        if (isset($validatedData['photo'])) {
-            $validatedData['photo'] = $this->photo->store('profiles', 'public');
+        return $this->updateValidation::rules($this->editId);
+    }
+
+    protected function updateRow($data, $id)
+    {
+        if (isset($data['photo'])) {
+            $data['photo'] = $this->photo->store('profiles', 'public');
         }
-        return $validatedData;
+        parent::updateRow($data, $id);
     }
 
 

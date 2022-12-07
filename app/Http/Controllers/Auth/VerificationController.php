@@ -29,7 +29,7 @@ class VerificationController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * GeneralCreate a new controller instance.
+     * Creating a new controller instance.
      *
      * @return void
      */

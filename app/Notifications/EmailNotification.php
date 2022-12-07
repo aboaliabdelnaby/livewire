@@ -15,7 +15,7 @@ class EmailNotification extends Notification
     protected $type;
 
     /**
-     * Create a new notification instance.
+     * Creating a new notification instance.
      *
      * @return void
      */

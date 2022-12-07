@@ -78,7 +78,7 @@ abstract class BaseRepoEloquent implements BaseRepoContract
     }
 
     /**
-     * Create a new model record in the database.
+     * Creating a new model record in the database.
      *
      * @param array $data
      *
@@ -90,7 +90,7 @@ abstract class BaseRepoEloquent implements BaseRepoContract
     }
 
     /**
-     * Create one or more new model records in the database.
+     * Creating one or more new model records in the database.
      *
      * @param array $data
      *
@@ -319,7 +319,7 @@ abstract class BaseRepoEloquent implements BaseRepoContract
     }
 
     /**
-     * Create a new instance of the model's query builder.
+     * Creating a new instance of the model's query builder.
      *
      * @return $this
      */

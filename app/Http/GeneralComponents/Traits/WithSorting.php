@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Http\GeneralComponents\Traits;
 
 trait WithSorting
 {
-    public string $sortType = 'asc'; // default sort direction
 
     public function sortBy($field): void
     {

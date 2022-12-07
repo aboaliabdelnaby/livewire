@@ -1,0 +1,29 @@
+{
+    "name": "livewire-components/general-components",
+    "description": "crud general components by livewire",
+    "type": "library",
+    "require": {
+        "livewire/livewire": "^2.10"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "LivewireComponents\\GeneralComponents\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LivewireComponents\\GeneralComponents\\Providers\\GeneralComponentsServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "aboaliabdelnaby",
+            "email": "aboaliabdelnaby@gmial.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

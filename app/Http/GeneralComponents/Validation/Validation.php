@@ -1,7 +1,5 @@
 <?php
-
-namespace App\Http\Validation;
-
+namespace App\Http\GeneralComponents\Validation;
 interface Validation
 {
     public static function rules(): array;

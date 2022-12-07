@@ -8,14 +8,14 @@ $(document).ready(function() {
 
     // Get the Add Event button
     var addEvent = document.getElementById("add-e");
-    // Get the Edit Event button
+    // Get the Editing Event button
     var editEvent = document.getElementById("edit-event");
     // Get the Discard Modal button
     var discardModal = document.querySelectorAll("[data-dismiss='modal']")[0];
-    
+
     // Get the Add Event button
     var addEventTitle = document.getElementsByClassName("add-event-title")[0];
-    // Get the Edit Event button
+    // Get the Editing Event button
     var editEventTitle = document.getElementsByClassName("edit-event-title")[0];
 
     // Get the <span> element that closes the modal
@@ -28,7 +28,7 @@ $(document).ready(function() {
     // Get the all <textarea> elements insdie the modal
     var textarea = document.getElementsByTagName('textarea');
 
-    // Create BackDrop ( Overlay ) Element
+    // Creating BackDrop ( Overlay ) Element
     function createBackdropElement () {
         var btn = document.createElement("div");
         btn.setAttribute('class', 'modal-backdrop fade show')
@@ -278,7 +278,7 @@ $(document).ready(function() {
 
             var taskInputEndDate = $("#end-date");
             var taskInputEndtDateValue = taskInputEndDate.val(info.end.format("YYYY-MM-DD HH:mm:ss"));
-        
+
             var startDate = flatpickr(document.getElementById('start-date'), {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
@@ -321,7 +321,7 @@ $(document).ready(function() {
             });
         }
     })
-    
+
 
     function enableDatePicker() {
         var startDate = flatpickr(document.getElementById('start-date'), {
@@ -411,13 +411,13 @@ $(document).ready(function() {
     const mailScroll = new PerfectScrollbar('.fc-scroller', {
         suppressScrollX : true
     });
-    
+
     var fcButtons = document.getElementsByClassName('fc-button');
     for(var i = 0; i < fcButtons.length; i++) {
         fcButtons[i].addEventListener('click', function() {
             const mailScroll = new PerfectScrollbar('.fc-scroller', {
                 suppressScrollX : true
-            });        
+            });
             $('.fc-scroller').animate({ scrollTop: 0 }, 100);
             setCurrentDateHighlightStyle();
         })

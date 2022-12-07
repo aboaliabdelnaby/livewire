@@ -356,7 +356,7 @@
 	}
 
 
-	// Create the required JSONP callback function for the request
+	// Creating the required JSONP callback function for the request
 	function createJsonpCallback( requestSettings, mockHandler, origSettings ) {
 		var callbackContext = origSettings && origSettings.context || requestSettings;
 		var jsonp = requestSettings.jsonpCallback || ("jsonp" + jsc++);

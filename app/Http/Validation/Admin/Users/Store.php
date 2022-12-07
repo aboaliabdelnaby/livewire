@@ -4,7 +4,7 @@ namespace App\Http\Validation\Admin\Users;
 
 use App\Enums\Users\Gender;
 use App\Enums\Users\Roles;
-use App\Http\Validation\Validation;
+use App\Http\GeneralComponents\Validation\Validation;
 use Illuminate\Validation\Rules\Enum;
 
 class Store implements Validation

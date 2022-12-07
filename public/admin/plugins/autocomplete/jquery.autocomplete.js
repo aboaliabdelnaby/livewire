@@ -138,7 +138,7 @@
         if (!currentValue) {
             return suggestion.value;
         }
-        
+
         var pattern = '(' + utils.escapeRegExChars(currentValue) + ')';
 
         return suggestion.value
@@ -237,7 +237,7 @@
                 that.hide();
             }, 200);
         },
-        
+
         abortAjax: function () {
             var that = this;
             if (that.currentRequest) {
@@ -704,7 +704,7 @@
             noSuggestionsContainer.detach();
 
             // clean suggestions if any
-            container.empty(); 
+            container.empty();
             container.append(noSuggestionsContainer);
 
             if ($.isFunction(beforeRender)) {
@@ -951,7 +951,7 @@
         }
     };
 
-    // Create chainable jQuery plugin:
+    // Creating chainable jQuery plugin:
     $.fn.devbridgeAutocomplete = function (options, args) {
         var dataKey = 'autocomplete';
         // If function invoked without argument return

@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Admin\User;
 
-use App\Http\GeneralComponents\GeneralIndex;
-use App\Http\Repositories\Admin\UserRepository;
+use App\Http\GeneralComponents\Components\Indexing;
+use App\Models\User;
 
-class Index extends GeneralIndex
+class Index extends Indexing
 {
-    protected string $module = 'User';
-    protected string $parent = 'admin.users';
-    protected string $repository = UserRepository::class;
-    protected array $columns = ['name', 'email'];
+    protected string $message = 'User deleted successfully';
+    protected string $viewPath = 'admin.users.index';
+    protected array $searchColumns = ['name', 'email'];
+    protected string $model = User::class;
+
 
 }

@@ -25,7 +25,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/    if(installedModules[moduleId]) {
 /******/      return installedModules[moduleId].exports;
 /******/    }
-/******/    // Create a new module (and put it into the cache)
+/******/    // Creating a new module (and put it into the cache)
 /******/    var module = installedModules[moduleId] = {
 /******/      i: moduleId,
 /******/      l: false,
@@ -178,7 +178,7 @@ function create(input, value) {
         throw new ParchmentError("Unable to create " + input + " blot");
     }
     var BlotClass = match;
-    var node = 
+    var node =
     // @ts-ignore
     input instanceof Node || input['nodeType'] === Node.TEXT_NODE ? input : BlotClass.create(value);
     return new BlotClass(node, value);
@@ -7924,8 +7924,8 @@ function diff_bisect_(text1, text2) {
  * and recurse.
  * @param {string} text1 Old string to be diffed.
  * @param {string} text2 New string to be diffed.
- * @param {number} x Index of split point in text1.
- * @param {number} y Index of split point in text2.
+ * @param {number} x Indexing of split point in text1.
+ * @param {number} y Indexing of split point in text2.
  * @return {Array} Array of diff tuples.
  */
 function diff_bisectSplit_(text1, text2, x, y) {
