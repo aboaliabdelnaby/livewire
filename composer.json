@@ -3,6 +3,15 @@
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
+    "repositories": {
+        "general-components": {
+            "type": "path",
+            "url": "packages/livewire-components/general-components",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
     "license": "MIT",
     "require": {
         "php": "^8.1",
@@ -11,7 +20,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
-        "livewire/livewire": "^2.10"
+        "livewire/livewire": "^2.10",
+        "livewire-components/general-components": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
