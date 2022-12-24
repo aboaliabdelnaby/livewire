@@ -54,24 +54,21 @@
             showCancelButton: true,
             confirmButtonText: 'Delete',
             padding: '2em'
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.value) {
                 livewire.emit('delete', id);
 
             }
         })
     });
+    @if(session()->has('success'))
 
-
-</script>
-@if(session()->has('success'))
-    <script>
-        livewire.emit('success', '{{session()->get('success')}}');
-    </script>
+    livewire.emit('success', '{{session()->get('success')}}');
     @endif
     @php
         session()->forget('success')
     @endphp
+</script>
 {{$js ?? ''}}
 </body>
 
